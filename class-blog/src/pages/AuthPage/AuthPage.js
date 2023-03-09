@@ -1,0 +1,23 @@
+import { useState } from 'react';
+import LoginPage from '../LoginPage/LoginPage';
+import SignupPage from '../SignupPage/SignupPage';
+
+function AuthPage({ user, setUser }) {
+  const [isLoginForm, setIsLoginForm] = useState(true);
+
+  const handleSwitchForm = () => {
+    setIsLoginForm(!isLoginForm);
+  };
+
+  return (
+    <div>
+      <h1>{isLoginForm ? 'Log in' : 'Sign up'}</h1>
+      {isLoginForm ? <LoginPage setUser={setUser} user={user} /> : <SignupPage />}
+      <button onClick={handleSwitchForm}>
+        {isLoginForm ? 'Switch to Sign up' : 'Switch to Log in'}
+      </button>
+    </div>
+  );
+}
+
+export default AuthPage;
