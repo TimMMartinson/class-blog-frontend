@@ -1,144 +1,117 @@
-// import { useState } from 'react';
-// import Modal from 'react-modal';
+    import { useState, useEffect } from 'react';
+    import Modal from 'react-modal';
 
-// function HomePage() {
-//   const [modalIsOpen, setModalIsOpen] = useState(false);
-//   const [title, setTitle] = useState('');
-//   const [content, setContent] = useState('');
+    function HomePage() {
+    // State for controlling the new post modal
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    // State for holding the values of the new post form inputs
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    // State for holding the lists of posts
+    const [posts, setPosts] = useState([]);
 
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
+    // Function to handle form submission for creating a new post
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-//     const token = localStorage.getItem('token');
-//     const response = await fetch('http://localhost:8000/posts', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({
-//         title: title,
-//         content: content,
-//       }),
-//     });
-
-//     if (response.ok) {
-//       setModalIsOpen(false);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Welcome to ClassBlog</h1>
-//       <button onClick={() => setModalIsOpen(true)}>Create new post</button>
-
-//       <Modal isOpen={modalIsOpen}>
-//         <form onSubmit={handleSubmit}>
-//           <label>
-//             Title:
-//             <input type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
-//           </label>
-//           <br />
-//           <label>
-//             Content:
-//             <textarea value={content} onChange={(event) => setContent(event.target.value)}></textarea>
-//           </label>
-//           <br />
-//           <button type="submit">Submit</button>
-//           <button onClick={() => setModalIsOpen(false)}>Cancel</button>
-//         </form>
-//       </Modal>
-//     </div>
-//   );
-// }
-
-// export default HomePage;
-import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
-
-function HomePage() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [posts, setPosts] = useState([]);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:8000/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        title: title,
-        content: content,
-      }),
-    });
-
-    if (response.ok) {
-      setModalIsOpen(false);
-      // After a new post is created, fetch all the posts again and update the state
-      const postsResponse = await fetch('http://localhost:8000/posts', {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8000/posts', {
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
-      });
-      const postsData = await postsResponse.json();
-      setPosts(postsData);
-    }
-  };
+        body: JSON.stringify({
+            title: title,
+            content: content,
+        }),
+        });
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const fetchPosts = async () => {
-      const postsResponse = await fetch('http://localhost:8000/posts', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const postsData = await postsResponse.json();
-      setPosts(postsData);
+        if (response.ok) {
+        setModalIsOpen(false);
+        // After a new post is created, fetch all the posts again and update the state
+        const postsResponse = await fetch('http://localhost:8000/posts', {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+        });
+        const postsData = await postsResponse.json();
+        setPosts(postsData);
+        }
     };
-    fetchPosts();
-  }, []);
 
-  return (
-    <div>
-      <h1>Welcome to ClassBlog</h1>
-      <button onClick={() => setModalIsOpen(true)}>Create new post</button>
+    // Effect to fetch all posts when the component mounts
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const fetchPosts = async () => {
+        const postsResponse = await fetch('http://localhost:8000/posts', {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+        });
+        const postsData = await postsResponse.json();
+        setPosts(postsData);
+        };
+        fetchPosts();
+    }, []);
 
-      <Modal isOpen={modalIsOpen}>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Title:
-            <input type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
-          </label>
-          <br />
-          <label>
-            Content:
-            <textarea value={content} onChange={(event) => setContent(event.target.value)}></textarea>
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-          <button onClick={() => setModalIsOpen(false)}>Cancel</button>
-        </form>
-      </Modal>
+        // Function to handle deleting a post
+        const handleDelete = async (postId) => {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:8000/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-      {/* Render all the posts */}
-      <ul>
-        {posts.map((post) => (
-          <li key={post._id}>
-            <h2>{post.title}</h2>
-            <p>{post.content}</p>
-            <p>{post.user_id.username}</p>
-          </li>
-        ))}
-      </ul>
+        if (response.ok) {
+        // If the post is deleted, fetch all the posts again and update the state
+        const postsResponse = await fetch('http://localhost:8000/posts', {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+        });
+        const postsData = await postsResponse.json();
+        setPosts(postsData);
+        }
+    };
+    return (
+        <div>
+        <h1>Welcome to ClassBlog</h1>
+        <button onClick={() => setModalIsOpen(true)}>Create new post</button>
+
+        {/* Modal for creating a new post */}
+        <Modal isOpen={modalIsOpen}>
+            <form onSubmit={handleSubmit}>
+            <label>
+                Title:
+                <input type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
+            </label>
+            <br />
+            <label>
+                Content:
+                <textarea value={content} onChange={(event) => setContent(event.target.value)}></textarea>
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+            <button onClick={() => setModalIsOpen(false)}>Cancel</button>
+            </form>
+        </Modal>
+
+        {/* Render all the posts */}
+        <ul>
+            {posts.map((post) => (
+            <li key={post._id}>
+                <h2>{post.title}</h2>
+                <p>Author: {post.user_id.username}</p>
+                <p>{post.content}</p>
+                <button onClick={() => handleDelete(post._id)}>Delete</button>            
+            </li>
+            ))}
+        </ul>
     </div>
-  );
-}
+    );
+    }
 
-export default HomePage;
+    export default HomePage;
