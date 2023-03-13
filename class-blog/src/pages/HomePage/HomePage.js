@@ -1,6 +1,8 @@
     import { useState, useEffect } from 'react';
     import Modal from 'react-modal';
 
+    Modal.setAppElement('#root');
+    
     function HomePage() {
     // State for controlling the new post modal
     const [modalIsOpen, setModalIsOpen] = useState(false);
