@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react'
 // import { Routes, Route } from 'react-router-dom'
 import AuthPage from '../AuthPage/AuthPage'
+import NavBar from '../../components/NavBar';
 
 const getUser = () => {
   const user = localStorage.getItem('user')
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
       {user ? (
         <>
+        <NavBar user={user} setUser={setUser}/>
         </>
       ): (
         <AuthPage setUser={setUser} user={user}/>

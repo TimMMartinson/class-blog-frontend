@@ -3,6 +3,7 @@ import { useState } from 'react';
 function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleEmailChange = event => {
     setEmail(event.target.value);
@@ -10,6 +11,10 @@ function SignupPage() {
 
   const handlePasswordChange = event => {
     setPassword(event.target.value);
+  };
+
+  const handleUsernameChange = event => {
+    setUsername(event.target.value);
   };
 
   const handleFormSubmit = event => {
@@ -21,6 +26,7 @@ function SignupPage() {
         credentials: {
           email: email,
           password: password,
+          username: username,
         },
       }),
     })
@@ -33,6 +39,11 @@ function SignupPage() {
 
   return (
     <form onSubmit={handleFormSubmit}>
+      <label>
+        Username:
+        <input type="text" value={username} onChange={handleUsernameChange} />
+      </label>
+      <br />
       <label>
         Email:
         <input type="email" value={email} onChange={handleEmailChange} />
