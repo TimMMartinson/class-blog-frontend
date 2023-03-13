@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
 function SignupPage() {
+  // State for holding the values of the input fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
+  // functions to handle changes in the input fields
   const handleEmailChange = event => {
     setEmail(event.target.value);
   };
