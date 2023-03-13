@@ -1,5 +1,6 @@
     import { useState, useEffect } from 'react';
     import Modal from 'react-modal';
+    import Comments from '../../components/Comments';
 
     Modal.setAppElement('#root');
 
@@ -156,7 +157,8 @@
                 <p>{post.content}</p>
                 <p>posted by {post.user_id.username} on {new Date(post.createdAt).toLocaleString()} </p>
                 <button onClick={() => handleUpdate(post)}>Edit</button>
-                <button onClick={() => handleDelete(post._id)}>Delete</button>            
+                <button onClick={() => handleDelete(post._id)}>Delete</button>
+                <Comments postId={post._id} />            
             </li>
             ))}
         </ul>
