@@ -27,7 +27,7 @@ function LoginPage() {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('token', data.token);
-        fetch('http://127.0.0.1:8000/users', {
+        fetch('http://127.0.0.1:8000/user', {
           method: 'GET',
           headers: { Authorization: `Bearer ${data.token}` },
         })
