@@ -27,20 +27,11 @@ function LoginPage() {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('token', data.token);
-        fetch('http://127.0.0.1:8000/user', {
-          method: 'GET',
-          headers: { Authorization: `Bearer ${data.token}` },
-        })
-          .then(response => response.json())
-          .then(user => {
-            localStorage.setItem('user', JSON.stringify(user));
-            // Redirect to home page after successful login
-          })
-          .catch(error => console.log(error));
+        localStorage.setItem('user', JSON.stringify(data.user));
+        window.location.href = '/';
       })
       .catch(error => console.log(error));
   };
-  
   
   return (
     <form onSubmit={handleFormSubmit}>
