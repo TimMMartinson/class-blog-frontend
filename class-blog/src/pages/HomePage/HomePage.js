@@ -2,7 +2,7 @@
     import Modal from 'react-modal';
 
     Modal.setAppElement('#root');
-    
+
     function HomePage() {
     // State for controlling the new post modal
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -57,6 +57,7 @@
             body: JSON.stringify({
               title: title,
               content: content,
+              createdAt: Date.now(),
             }),
           });
       
@@ -152,8 +153,8 @@
             {posts.map((post) => (
             <li key={post._id}>
                 <h2>{post.title}</h2>
-                <p>Author: {post.user_id.username}</p>
                 <p>{post.content}</p>
+                <p>posted by {post.user_id.username} on {new Date(post.createdAt).toLocaleString()} </p>
                 <button onClick={() => handleUpdate(post)}>Edit</button>
                 <button onClick={() => handleDelete(post._id)}>Delete</button>            
             </li>
