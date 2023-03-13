@@ -12,26 +12,7 @@ function LoginPage() {
     setPassword(event.target.value);
   };
 
-//   const handleFormSubmit = event => {
-//     event.preventDefault();
-//     fetch('http://127.0.0.1:8000/sign-in', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         credentials: {
-//           email: email,
-//           password: password,
-//         },
-//       }),
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         localStorage.setItem('token', data.token);
-//         // Redirect to home page after successful login
-//       })
-//       .catch(error => console.log(error));
-//   };
-const handleFormSubmit = event => {
+  const handleFormSubmit = event => {
     event.preventDefault();
     fetch('http://127.0.0.1:8000/sign-in', {
       method: 'POST',
@@ -46,18 +27,20 @@ const handleFormSubmit = event => {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('token', data.token);
-        // Fetch the user data
-        return fetch('http://127.0.0.1:8000/me', {
+        fetch('http://127.0.0.1:8000/users', {
+          method: 'GET',
           headers: { Authorization: `Bearer ${data.token}` },
-        });
-      })
-      .then(response => response.json())
-      .then(data => {
-        localStorage.setItem('user', JSON.stringify(data));
-        // Redirect to home page after successful login
+        })
+          .then(response => response.json())
+          .then(user => {
+            localStorage.setItem('user', JSON.stringify(user));
+            // Redirect to home page after successful login
+          })
+          .catch(error => console.log(error));
       })
       .catch(error => console.log(error));
   };
+  
   
   return (
     <form onSubmit={handleFormSubmit}>
