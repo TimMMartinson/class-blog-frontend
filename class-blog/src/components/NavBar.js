@@ -15,8 +15,8 @@ function NavBar({ user, setUser }) {
       {user ? (
         <div className="nav-right">
           <span className="nav-message">Hello, {user.username}!</span>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+          <button className='button' onClick={handleLogout}>Logout</button>
+        </div> 
       ) : null}
     </nav>
   );

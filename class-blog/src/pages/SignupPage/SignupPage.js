@@ -40,24 +40,27 @@ function SignupPage() {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={handleUsernameChange} />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input type="email" value={email} onChange={handleEmailChange} />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={handlePasswordChange} />
-      </label>
-      <br />
-      <button type="submit">Sign up</button>
-    </form>
+    <div className='form-container'>
+        <form onSubmit={handleFormSubmit}>
+            <label>
+                Username:
+                <input type="text" value={username} onChange={handleUsernameChange} />
+            </label>
+            <br />
+            <label>
+                Email:
+                <input type="email" value={email} onChange={handleEmailChange} />
+            </label>
+            <br />
+            <label>
+                Password:
+                <input type="password" value={password} onChange={handlePasswordChange} />
+            </label>
+            <br />
+            <button className='button' type="submit">Sign up</button>
+        </form>
+    </div>
+    
   );
 }
 

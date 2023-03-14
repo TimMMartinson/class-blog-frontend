@@ -89,14 +89,14 @@ function Comments({ postId }) {
             Add a comment:
             <input type="text" value={content} onChange={handleContentChange} />
           </label>
-          <button type="submit">{commentId ? 'Update' : 'Submit'}</button>
+          <button className='button' type="submit">{commentId ? 'Update' : 'Submit'}</button>
         </form>
         {comments.map((comment) => (
           <div key={comment._id}>
             <p>{comment.content}</p>
             <p>Commented by: {comment.user_id.username} on {new Date(comment.createdAt).toLocaleString()}</p>
-            <button onClick={() => handleEdit(comment)}>Edit</button>
-            <button onClick={() => handleDelete(comment._id)}>Delete</button>
+            <button className='button' onClick={() => handleEdit(comment)}>Edit</button>
+            <button className='delete-button' onClick={() => handleDelete(comment._id)}>Delete</button>
           </div>
         ))}
       </div>

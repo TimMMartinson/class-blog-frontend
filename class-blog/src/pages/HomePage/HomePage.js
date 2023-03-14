@@ -128,7 +128,7 @@
     return (
         <div>
         <h1>Welcome to ClassBlog</h1>
-        <button onClick={() => setModalIsOpen(true)}>Create new post</button>
+        <button className='button' onClick={() => setModalIsOpen(true)}>Create new post</button>
 
         {/* Modal for creating a new post */}
     <Modal isOpen={modalIsOpen}>
@@ -143,8 +143,8 @@
             <textarea value={content} onChange={(event) => setContent(event.target.value)}></textarea>
             </label>
             <br />
-            <button type="submit">{postId ? 'Update' : 'Submit'}</button>
-            <button onClick={() => setModalIsOpen(false)}>Cancel</button>
+            <button className='button' type="submit">{postId ? 'Update' : 'Submit'}</button>
+            <button className='button' onClick={() => setModalIsOpen(false)}>Cancel</button>
         </form>
     </Modal>
 
@@ -156,8 +156,8 @@
                 <h2>{post.title}</h2>
                 <p>{post.content}</p>
                 <p>posted by {post.user_id.username} on {new Date(post.createdAt).toLocaleString()} </p>
-                <button onClick={() => handleUpdate(post)}>Edit</button>
-                <button onClick={() => handleDelete(post._id)}>Delete</button>
+                <button className='button' onClick={() => handleUpdate(post)}>Edit</button>
+                <button className='delete-button' onClick={() => handleDelete(post._id)}>Delete</button>
                 <Comments postId={post._id} />            
             </li>
             ))}

@@ -41,19 +41,22 @@ function LoginPage() {
   
   return (
     // Render a form for logging in with email and password inputs
-    <form onSubmit={handleFormSubmit}>
-      <label>
-        Email:
-        <input type="email" value={email} onChange={handleEmailChange} />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={handlePasswordChange} />
-      </label>
-      <br />
-      <button type="submit">Log in</button>
-    </form>
+    <div className='form-container'>
+        <form onSubmit={handleFormSubmit}>
+            <label>
+                Email:
+                <input type="email" value={email} onChange={handleEmailChange} />
+            </label>
+            <br />
+            <label>
+                Password:
+                <input type="password" value={password} onChange={handlePasswordChange} />
+            </label>
+            <br />
+            <button className='button' type="submit">Log in</button>
+        </form>
+    </div>
+    
   );
 }
 
