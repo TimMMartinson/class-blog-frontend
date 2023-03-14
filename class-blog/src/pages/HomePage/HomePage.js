@@ -27,7 +27,7 @@
       
         if (postId) {
           // If postId exists, update an existing post
-          const response = await fetch(`http://localhost:8000/posts/${postId}`, {
+          const response = await fetch(`https://classblog-server.onrender.com/posts/${postId}`, {
             method: 'PATCH',
             headers: headers,
             body: JSON.stringify({
@@ -39,7 +39,7 @@
           if (response.ok) {
             setModalIsOpen(false);
             // After a post is updated, fetch all the posts again and update the state
-            const postsResponse = await fetch('http://localhost:8000/posts', {
+            const postsResponse = await fetch('https://classblog-server.onrender.com/posts', {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -52,7 +52,7 @@
           }
         } else {
           // If postId does not exist, create a new post
-          const response = await fetch('http://localhost:8000/posts', {
+          const response = await fetch('https://classblog-server.onrender.com/posts', {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({
@@ -65,7 +65,7 @@
           if (response.ok) {
             setModalIsOpen(false);
             // After a new post is created, fetch all the posts again and update the state
-            const postsResponse = await fetch('http://localhost:8000/posts', {
+            const postsResponse = await fetch('https://classblog-server.onrender.com/posts', {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -84,7 +84,7 @@
     useEffect(() => {
         const token = localStorage.getItem('token');
         const fetchPosts = async () => {
-        const postsResponse = await fetch('http://localhost:8000/posts', {
+        const postsResponse = await fetch('https://classblog-server.onrender.com/posts', {
             headers: {
             Authorization: `Bearer ${token}`,
             },
@@ -98,7 +98,7 @@
         // Function to handle deleting a post
         const handleDelete = async (postId) => {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/posts/${postId}`, {
+            const response = await fetch(`https://classblog-server.onrender.com/posts/${postId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -107,7 +107,7 @@
 
         if (response.ok) {
         // If the post is deleted, fetch all the posts again and update the state
-        const postsResponse = await fetch('http://localhost:8000/posts', {
+        const postsResponse = await fetch('https://classblog-server.onrender.com/posts', {
             headers: {
             Authorization: `Bearer ${token}`,
             },

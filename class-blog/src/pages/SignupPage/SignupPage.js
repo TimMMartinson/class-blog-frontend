@@ -21,7 +21,7 @@ function SignupPage() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    fetch('http://127.0.0.1:8000/sign-up', {
+    fetch('https://classblog-server.onrender.com/sign-up', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

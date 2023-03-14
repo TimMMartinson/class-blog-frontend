@@ -18,7 +18,7 @@ function LoginPage() {
   const handleFormSubmit = event => {
     event.preventDefault();
     // Make a POST request to the server to log in
-    fetch('http://127.0.0.1:8000/sign-in', {
+    fetch('https://classblog-server.onrender.com/sign-in', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

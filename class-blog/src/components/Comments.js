@@ -15,7 +15,7 @@ function Comments({ postId }) {
       const body = { content, createdAt: Date.now() };
   
       if (commentId) {
-        const response = await fetch(`http://localhost:8000/comments/${commentId}`, {
+        const response = await fetch(`https://classblog-server.onrender.com/comments/${commentId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function Comments({ postId }) {
           setCommentId(null);
         }
       } else {
-        const response = await fetch(`http://localhost:8000/posts/${postId}/comments`, {
+        const response = await fetch(`https://classblog-server.onrender.com/posts/${postId}/comments`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function Comments({ postId }) {
   
     const handleDelete = async (commentId) => {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8000/comments/${commentId}`, {
+      const response = await fetch(`https://classblog-server.onrender.com/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ function Comments({ postId }) {
     useEffect(() => {
       const token = localStorage.getItem('token');
       const fetchComments = async () => {
-        const response = await fetch(`http://localhost:8000/posts/${postId}/comments`, {
+        const response = await fetch(`https://classblog-server.onrender.com/posts/${postId}/comments`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
