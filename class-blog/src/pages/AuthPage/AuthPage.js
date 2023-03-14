@@ -12,7 +12,7 @@ function AuthPage({ user, setUser }) {
   return (
     <div>
         {/* Render either the login or signup page based on the isLoginForm state */}
-      <h1 className='header'>{isLoginForm ? 'Log in' : 'Sign up'}</h1>
+      <h1 className='header'>{isLoginForm ? 'Log in to ClassBlog' : 'Sign up for ClassBlog'}</h1>
       {isLoginForm ? <LoginPage setUser={setUser} user={user} /> : <SignupPage />}
       {/* Button to switch between login and signup forms */}
       <button className='button' onClick={handleSwitchForm}>
